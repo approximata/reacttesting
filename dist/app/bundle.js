@@ -22483,31 +22483,29 @@
 	  }
 	
 	  _createClass(AddItem, [{
-	    key: "render",
-	    value: function render() {
-	      var _this2 = this;
-	
-	      var newItemComp = this.newItem;
-	      return _react2.default.createElement(
-	        "form",
-	        { className: "add-todo", onSubmit: this.handleSubmit },
-	        _react2.default.createElement("input", { type: "text", ref: function ref(c) {
-	            _this2.newItem = c;
-	          } }),
-	        _react2.default.createElement("input", { type: "submit", value: "Hit me" })
-	      );
-	    }
-	  }, {
 	    key: "handleSubmit",
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
-	      console.log(this.ref.newItemComp);
-	      this.props.onAdd(this.ref.newItemComp.value);
+	      onAdd(this.refs.newItem.value);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "form",
+	        { className: "add-todo", onSubmit: this.handleSubmit.bind(this) },
+	        _react2.default.createElement("input", { type: "text", required: true, ref: "newItem" }),
+	        _react2.default.createElement("input", { type: "submit", value: "Hit me" })
+	      );
 	    }
 	  }]);
 	
 	  return AddItem;
 	}(_react2.default.Component);
+	
+	// AddItem.propTypes = {
+	//   onAdd: PropTypes.func.isRequired,
+	// };
 	
 	exports.default = AddItem;
 

@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, browserHistory, Link } from 'react-router';
 import TodoItem from './todoItem';
 import AddItem from './addItem';
+import About from './about';
+
 
 require('./css/index.css');
 
@@ -12,14 +15,12 @@ class TodoComponent extends React.Component {
     this.onAdd = this.onAdd.bind(this);
     this.state =
     {
-      todos: ['do it', 'not do it'],
-      counter: 0,
+      todos: ['wash up', 'eat some cheese', 'take a nap'],
     };
   }
 
   onAdd(item) {
     const updatedTodos = this.state.todos;
-    console.log("eccco");
     updatedTodos.push(item);
     this.setState({
       todos: updatedTodos,
@@ -40,14 +41,20 @@ class TodoComponent extends React.Component {
     );
     return (
       <div className="todo-list">
-        <h1>Helloa</h1>
+        <Link to={'/about'}>About</Link>
         <ul>{todos}</ul>
-        <p>{this.state.counter}</p>
-        <AddItem />
-
+        <AddItem onAdd={this.onAdd} />
       </div>
     );
   }
 }
 
-ReactDOM.render(<TodoComponent />, document.querySelector('.todo-wrapper'));
+const App = () =>
+  (
+    <Router history={browserHistory}>
+      <Route path={'/'} component={TodoComponent} />
+      <Route path={'/about'} component={About} />
+    </Router>
+  );
+
+ReactDOM.render(<App />, document.querySelector('.todo-wrapper'));

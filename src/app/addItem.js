@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 
+require('./css/addItem.css');
+
 class AddItem extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
-    onAdd(this.refs.newItem.value);
+    this.props.onAdd(this.refs.newItem.value);
   }
   render() {
     return (
@@ -16,8 +18,8 @@ class AddItem extends React.Component {
 
 }
 
-// AddItem.propTypes = {
-//   onAdd: PropTypes.func.isRequired,
-// };
+AddItem.propTypes = {
+  onAdd: PropTypes.func.isRequired,
+};
 
 export default AddItem;
