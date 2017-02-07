@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TodoItem from './todoItem';
+import AddItem from './addItem';
+
+require('./css/index.css');
 
 class TodoComponent extends React.Component {
   constructor(props) {
     super(props);
-    // this.changing = this.changing.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.onAdd = this.onAdd.bind(this);
     this.state =
     {
       todos: ['do it', 'not do it'],
@@ -12,66 +17,37 @@ class TodoComponent extends React.Component {
     };
   }
 
+  onAdd(item) {
+    const updatedTodos = this.state.todos;
+    console.log("eccco");
+    updatedTodos.push(item);
+    this.setState({
+      todos: updatedTodos,
+    });
+  }
+
+  onDelete(item) {
+    const updateTodos = this.state.todos.filter(value => value !== item);
+    this.setState({
+      todos: updateTodos,
+    });
+  }
+
   render() {
     let todos = this.state.todos;
     todos = todos.map((item, index) =>
-      (<TodoItem item={item} key={index} />)
+      (<TodoItem item={item} key={index} onDelete={this.onDelete} />)
     );
-    // setTimeout(() => {
-    //   this.setState({
-    //     counter: 1,
-    //   });
-    // }, 1000);
     return (
-      <div>
+      <div className="todo-list">
         <h1>Helloa</h1>
         <ul>{todos}</ul>
         <p>{this.state.counter}</p>
+        <AddItem />
+
       </div>
     );
   }
 }
-
-const TodoItem = ({ item, handleDelete }) => (
-  <li>
-    <div className="todo-item">
-      <span className="item-name">{item}</span>
-      <span className="item-delete" onClick={handleDelete}> x </span>
-    </div>
-  </li>
-);
-
-TodoItem.propTypes = {
-  item: React.PropTypes.string.isRequired,
-};
-
-// functional component
-
-// const TodoComponent = ({ cheese }) => (
-//   <div>
-//     <h1>Helloa</h1>
-//     <p>{cheese.name}</p>
-//     <p>{cheese.price}</p>
-//   </div>
-// );
-//
-// TodoComponent.propTypes = {
-//   cheese: React.PropTypes.object.isRequired,
-// };
-//
-// const myCheese = { name: 'camabert', price: 234 };
-
-// class solution
-
-// class TodoComponent extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   render() {
-//     return (
-//       <h1>Helloa</h1>
-//     );
-//   }
-// }
 
 ReactDOM.render(<TodoComponent />, document.querySelector('.todo-wrapper'));
