@@ -1,4 +1,6 @@
-# react net ninja tutorial es6 version  
+## react net ninja tutorial es6 version  
+
+Rewrite the original ninja react tutorial to ES6 version. 
 
 Original files here:  
 https://github.com/iamshaunjp/react-playlist
